@@ -1,4 +1,4 @@
-use crate::anchor::Sep24Transaction;
+use crate::anchor::Sep24InteractiveResponse;
 use reqwest::Client;
 
 pub struct Sep24Client {
@@ -18,7 +18,7 @@ impl Sep24Client {
         anchor_domain: &str,
         asset_code: &str,
         account: &str,
-    ) -> Result<Sep24Transaction, anyhow::Error> {
+    ) -> Result<Sep24InteractiveResponse, anyhow::Error> {
         let tx_id = format!("tx_sep24_{}", uuid_fast());
         
         // Simulates query to anchor's `https://<domain>/sep24/transactions/deposit/interactive`
@@ -27,11 +27,10 @@ impl Sep24Client {
             anchor_domain, asset_code, account, tx_id
         );
 
-        Ok(Sep24Transaction {
-            id: tx_id,
-            status: "incomplete".to_string(),
+        Ok(Sep24InteractiveResponse {
+            r#type: "interactive_customer_info_needed".to_string(),
             url: interactive_url,
-            eta: 120,
+            id: tx_id,
         })
     }
 
@@ -40,7 +39,7 @@ impl Sep24Client {
         anchor_domain: &str,
         asset_code: &str,
         account: &str,
-    ) -> Result<Sep24Transaction, anyhow::Error> {
+    ) -> Result<Sep24InteractiveResponse, anyhow::Error> {
         let tx_id = format!("tx_sep24_{}", uuid_fast());
         
         // Simulates query to anchor's `https://<domain>/sep24/transactions/withdraw/interactive`
@@ -49,11 +48,10 @@ impl Sep24Client {
             anchor_domain, asset_code, account, tx_id
         );
 
-        Ok(Sep24Transaction {
-            id: tx_id,
-            status: "incomplete".to_string(),
+        Ok(Sep24InteractiveResponse {
+            r#type: "interactive_customer_info_needed".to_string(),
             url: interactive_url,
-            eta: 90,
+            id: tx_id,
         })
     }
 }

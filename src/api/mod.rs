@@ -5,7 +5,7 @@ use axum::{
 use serde::{Deserialize, Serialize};
 use crate::bridge::Chain;
 use crate::router::{RoutePlanner, RouteOption};
-use crate::anchor::{sep24::Sep24Client, sep38::Sep38Client, Sep24Transaction, Sep38Quote};
+use crate::anchor::{sep24::Sep24Client, sep38::Sep38Client, Sep24InteractiveResponse, Sep38Quote};
 
 #[derive(Deserialize)]
 pub struct QuoteRequest {
@@ -77,7 +77,7 @@ async fn quote_handler(
 
 async fn deposit_handler(
     Json(payload): Json<DepositRequest>,
-) -> Result<Json<Sep24Transaction>, (StatusCode, String)> {
+) -> Result<Json<Sep24InteractiveResponse>, (StatusCode, String)> {
     let client = Sep24Client::new();
     match client.initiate_deposit(
         &payload.anchor_domain,

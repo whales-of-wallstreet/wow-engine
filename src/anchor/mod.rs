@@ -11,20 +11,19 @@ pub struct AnchorInfo {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Sep24Transaction {
+pub struct Sep24InteractiveResponse {
+    pub r#type: String, // e.g. "interactive_customer_info_needed"
+    pub url: String,
     pub id: String,
-    pub status: String,
-    pub url: String, // Interactive web flow URL
-    pub eta: u64,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Sep38Quote {
     pub id: String,
-    pub buy_asset: String,
+    pub expires_at: String, // ISO-8601 string
+    pub price: String, // decimal string
     pub sell_asset: String,
-    pub buy_amount: f64,
-    pub sell_amount: f64,
-    pub expires_at: String,
-    pub price: f64,
+    pub sell_amount: String, // decimal string
+    pub buy_asset: String,
+    pub buy_amount: String, // decimal string
 }
