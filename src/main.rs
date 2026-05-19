@@ -11,15 +11,14 @@ async fn main() {
     let addr = SocketAddr::from(([127, 0, 0, 1], 8080));
     let listener = tokio::net::TcpListener::bind(addr).await.expect("Failed to bind to socket address");
     
-    println!("============================================================");
-    println!("🚀 Wow Engine is booting up and routing pipeline conversions...");
+    println!("Wow Engine is booting up and routing pipeline conversions...");
     println!("   Listening on: http://{}", addr);
     println!("   Endpoints available:");
     println!("     - GET  /api/v1/health          (Health Check)");
     println!("     - POST /api/v1/quote           (Quoting Pathfinder)");
-    println!("     - POST /api/v1/anchor/deposit  (SEP-24 Deposit Anchor)");
+    println!("     - POST /api/v1/anchor/deposit  (SEP-24 Deposit Anchor / On-ramp)");
+    println!("     - POST /api/v1/anchor/withdraw (SEP-24 Withdraw Anchor / Off-ramp)");
     println!("     - POST /api/v1/anchor/quote    (SEP-38 Anchor Quotes)");
-    println!("============================================================");
 
     // 3. Serve incoming TCP requests through Axum pipeline
     axum::serve(listener, app).await.expect("Failed to run Axum server");
